@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 
+	"github.com/kidmortal/kidmortal-go-api/src/db"
 	"github.com/kidmortal/kidmortal-go-api/src/router"
 
 	"github.com/joho/godotenv"
@@ -13,7 +14,8 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	router := router.ConfigRoutes()
-	router.Run(":2500")
+	dbSession := db.GetInstance()
+	router := router.ConfigRouter(dbSession)
+	router.Listen(":3000")
 
 }
