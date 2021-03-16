@@ -7,7 +7,10 @@ import (
 )
 
 // ConfigRouter retorna router com rotas configuradas
-func ConfigRouter(client *mongo.Client) *fiber.App {
-	r := fiber.New()
-	return routes.ConfigRoutes(r, client)
+func ConfigRouter(db *mongo.Client) *fiber.App {
+	router := fiber.New()
+	routes.ClientesRouter(router, db)
+	routes.PedidosRouter(router, db)
+	routes.OmieWebhookRouter(router, db)
+	return router
 }

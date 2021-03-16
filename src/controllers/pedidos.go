@@ -5,7 +5,7 @@ import (
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/kidmortal/kidmortal-go-api/src/models"
+	mongodb "github.com/kidmortal/kidmortal-go-api/src/models/mongodb"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -25,7 +25,7 @@ func CreateOnePedido(c *fiber.Ctx, db *mongo.Client) error {
 
 // FindAllPedido Busca todos pedidos no sistema, aceitando alguns filtros para busca
 func FindAllPedido(c *fiber.Ctx, db *mongo.Client) error {
-	var pedido []models.Pedido
+	var pedido []mongodb.Pedido
 	collection := db.Database("pyramid").Collection("pedidos")
 	cursor, err := collection.Find(c.Context(), bson.M{})
 
@@ -51,7 +51,7 @@ func FindAllPedido(c *fiber.Ctx, db *mongo.Client) error {
 // FindOnePedido Busca um unico pedido usando o numero do pedido como parametro
 func FindOnePedido(c *fiber.Ctx, db *mongo.Client) error {
 	collection := db.Database("pyramid").Collection("pedidos")
-	var pedido models.Pedido
+	var pedido mongodb.Pedido
 	pedidoParam := c.Params("pedido")
 	pedidoNumero, err := strconv.Atoi(pedidoParam)
 	collection.FindOne(c.Context(), bson.M{"numero": pedidoNumero}).Decode(&pedido)

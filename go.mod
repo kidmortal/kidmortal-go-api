@@ -3,7 +3,7 @@ module github.com/kidmortal/kidmortal-go-api
 go 1.16
 
 require (
-	github.com/gin-gonic/gin v1.6.3
+	github.com/gin-gonic/gin v1.6.3 // indirect
 	github.com/gofiber/fiber/v2 v2.5.0
 	github.com/joho/godotenv v1.3.0
 	github.com/klauspost/compress v1.11.12 // indirect
