@@ -9,23 +9,43 @@ import (
 )
 
 // CreateOnePedido Cria um pedido pelo metodo POST
-func OmieWebhookHandler(c *fiber.Ctx, db *mongo.Client) {
+func OmieWebhookHandler(fiber *fiber.Ctx, db *mongo.Client) {
 	var webhook webhooks.OmieWebhook
-	c.BodyParser(&webhook)
+	fiber.BodyParser(&webhook)
 	switch webhook.Topic {
 
+	case "ClienteFornecedor.Alterado":
+		clienteFornecedorAlterado(fiber, db)
+
 	case "Financas.ContaPagar.Incluido":
-		financasContaPagarIncluido(c, db)
+		financasContaPagarIncluido(fiber, db)
 
 	case "Financas.ContaPagar.Alterado":
-		fmt.Println("Contas a pagar Alterado")
+		financasContaPagarAlterado(fiber, db)
 
 	}
 
 }
 
-func financasContaPagarIncluido(c *fiber.Ctx, db *mongo.Client) {
+func clienteFornecedorAlterado(fiber *fiber.Ctx, db *mongo.Client) {
+	var webhook webhooks.ClienteFornecedorAlterado
+	fiber.BodyParser(&webhook)
+	fmt.Println(webhook.Topic)
+	fmt.Println(webhook.Event.RazaoSocial)
+}
+
+func financasContaPagarIncluido(fiber *fiber.Ctx, db *mongo.Client) {
 	var webhook webhooks.ContaAPagarIncluido
-	c.BodyParser(&webhook)
+	fiber.BodyParser(&webhook)
+	fmt.Println(webhook.Topic)
 	fmt.Println(webhook.Event.Observacao)
+}
+
+func financasContaPagarAlterado(fiber *fiber.Ctx, db *mongo.Client) {
+	var webhook webhooks.ContaAPagarAlterado
+	fiber.BodyParser(&webhook)
+	fmt.Println(webhook.Topic)
+
+	cliente := GetClienteById(349775276)
+	fmt.Println(cliente.RazaoSocial)
 }
