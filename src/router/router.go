@@ -11,6 +11,6 @@ func ConfigRouter(db *mongo.Client) *fiber.App {
 	router := fiber.New()
 	routes.ClientesRouter(router, db)
 	routes.PedidosRouter(router, db)
-	routes.OmieWebhookRouter(router, db)
+	routes.WebhookRouter(router, db)
 	return router
 }
