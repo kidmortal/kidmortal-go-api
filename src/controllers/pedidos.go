@@ -1,11 +1,9 @@
 package controllers
 
 import (
-	"fmt"
 	"log"
 	"strconv"
 
-	"github.com/gin-gonic/gin"
 	"github.com/gofiber/fiber/v2"
 	"github.com/kidmortal/kidmortal-go-api/src/models"
 	"go.mongodb.org/mongo-driver/bson"
@@ -13,10 +11,16 @@ import (
 )
 
 // CreateOnePedido Cria um pedido pelo metodo POST
-func CreateOnePedido(c *gin.Context) {
-	c.JSON(200, gin.H{
-		"message": "Criando Pedido",
+func CreateOnePedido(c *fiber.Ctx, db *mongo.Client) error {
+	err := c.Status(200).JSON(&fiber.Map{
+		"pedido": "eai",
 	})
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return err
 }
 
 // FindAllPedido Busca todos pedidos no sistema, aceitando alguns filtros para busca
@@ -64,17 +68,27 @@ func FindOnePedido(c *fiber.Ctx, db *mongo.Client) error {
 }
 
 // UpdateOnePedido Atualiza um unico pedido usando o numero do pedido como parametro
-func UpdateOnePedido(c *gin.Context) {
-	pedido, _ := c.Params.Get("pedido")
-	c.JSON(200, gin.H{
-		"message": fmt.Sprintf("Atualizando o Pedido %v", pedido),
+func UpdateOnePedido(c *fiber.Ctx, db *mongo.Client) error {
+	err := c.Status(200).JSON(&fiber.Map{
+		"pedido": "eai",
 	})
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return err
 }
 
 // DeleteOnePedido Deleta um unico pedido usando o numero do pedido como parametro
-func DeleteOnePedido(c *gin.Context) {
-	pedido, _ := c.Params.Get("pedido")
-	c.JSON(200, gin.H{
-		"message": fmt.Sprintf("Deletando o Pedido %v", pedido),
+func DeleteOnePedido(c *fiber.Ctx, db *mongo.Client) error {
+	err := c.Status(200).JSON(&fiber.Map{
+		"pedido": "eai",
 	})
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return err
 }

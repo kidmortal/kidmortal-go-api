@@ -11,5 +11,4 @@ require (
 	github.com/valyala/tcplisten v1.0.0 // indirect
 	go.mongodb.org/mongo-driver v1.4.6
 	golang.org/x/sys v0.0.0-20210313110737-8e9fff1a3a18 // indirect
-	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22
 )
