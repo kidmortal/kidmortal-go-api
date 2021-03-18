@@ -32,6 +32,7 @@ func BlingWebhookHandler(fiber *fiber.Ctx, db *mongo.Client) {
 }
 
 func pedidoConcluido(fiber *fiber.Ctx, db *mongo.Client, pedido webhooks.PedidoBling) {
+
 	fmt.Println(pedido.Cliente.Nome)
 	fmt.Println(pedido.Situacao)
 }
