@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/kidmortal/kidmortal-go-api/src/db"
-	"github.com/kidmortal/kidmortal-go-api/src/router"
+	"github.com/kidmortal/kidmortal-go-api/src/routes"
 
 	"github.com/joho/godotenv"
 )
@@ -17,8 +17,7 @@ func main() {
 	}
 
 	dbSession := db.GetInstance()
-	dbPostgres := db.GetPostgresDB()
-	router := router.ConfigRouter(dbSession, dbPostgres)
+	router := routes.ConfigRouter(dbSession)
 	router.Listen(fmt.Sprintf(":%s", os.Getenv("PORT")))
 
 }

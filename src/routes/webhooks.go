@@ -1,17 +1,14 @@
 package routes
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/kidmortal/kidmortal-go-api/src/controllers"
-	models "github.com/kidmortal/kidmortal-go-api/src/models/postgres"
 	"go.mongodb.org/mongo-driver/mongo"
-	"gorm.io/gorm"
 )
 
-func WebhookRouter(r *fiber.App, db *mongo.Client, dbp *gorm.DB) {
+func WebhookRouter(r *fiber.App, db *mongo.Client) {
 
 	webhook := r.Group("/webhook")
 
@@ -45,19 +42,6 @@ func WebhookRouter(r *fiber.App, db *mongo.Client, dbp *gorm.DB) {
 		if err != nil {
 			log.Fatal(err)
 		}
-
-		newPedido := models.Pedido{
-			Numero:   500,
-			Nome:     "MATCHELOOO",
-			Cnpj:     "29238232323",
-			Valor:    599.25,
-			Vendedor: "mainha",
-			Cidade:   "Caju",
-			Estado:   "CU",
-			Status:   "sein",
-		}
-		dbp.Table("Pedidos").Create(&newPedido)
-		fmt.Println(newPedido.ID)
 		return err
 	})
 
