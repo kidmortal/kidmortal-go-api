@@ -15,8 +15,10 @@ func main() {
 	if err != nil {
 		fmt.Println("Error loading .env File")
 	}
+
 	dbSession := db.GetInstance()
-	router := router.ConfigRouter(dbSession)
+	dbPostgres := db.GetPostgresDB()
+	router := router.ConfigRouter(dbSession, dbPostgres)
 	router.Listen(fmt.Sprintf(":%s", os.Getenv("PORT")))
 
 }
