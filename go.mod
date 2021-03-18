@@ -4,7 +4,6 @@ go 1.16
 
 require (
 	github.com/gofiber/fiber/v2 v2.5.0
-	github.com/golang/protobuf v1.4.3
 	github.com/jackc/pgproto3/v2 v2.0.7 // indirect
 	github.com/jinzhu/now v1.1.2 // indirect
 	github.com/joho/godotenv v1.3.0
