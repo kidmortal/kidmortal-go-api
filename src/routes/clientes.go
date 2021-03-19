@@ -6,7 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func ClientesRouter(r *fiber.App, db *mongo.Client) {
+func ClientesRouter(r *fiber.App, db *mongo.Database) {
 	clientes := r.Group("/clientes")
 
 	clientes.Post("/", func(c *fiber.Ctx) error {

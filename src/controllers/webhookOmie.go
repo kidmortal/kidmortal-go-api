@@ -9,7 +9,7 @@ import (
 )
 
 // CreateOnePedido Cria um pedido pelo metodo POST
-func OmieWebhookHandler(fiber *fiber.Ctx, db *mongo.Client) {
+func OmieWebhookHandler(fiber *fiber.Ctx, db *mongo.Database) {
 	var webhook webhooks.OmieWebhook
 	fiber.BodyParser(&webhook)
 	switch webhook.Topic {
@@ -27,21 +27,21 @@ func OmieWebhookHandler(fiber *fiber.Ctx, db *mongo.Client) {
 
 }
 
-func clienteFornecedorAlterado(fiber *fiber.Ctx, db *mongo.Client) {
+func clienteFornecedorAlterado(fiber *fiber.Ctx, db *mongo.Database) {
 	var webhook webhooks.ClienteFornecedorAlterado
 	fiber.BodyParser(&webhook)
 	fmt.Println(webhook.Topic)
 	fmt.Println(webhook.Event.RazaoSocial)
 }
 
-func financasContaPagarIncluido(fiber *fiber.Ctx, db *mongo.Client) {
+func financasContaPagarIncluido(fiber *fiber.Ctx, db *mongo.Database) {
 	var webhook webhooks.ContaAPagarIncluido
 	fiber.BodyParser(&webhook)
 	fmt.Println(webhook.Topic)
 	fmt.Println(webhook.Event.Observacao)
 }
 
-func financasContaPagarAlterado(fiber *fiber.Ctx, db *mongo.Client) {
+func financasContaPagarAlterado(fiber *fiber.Ctx, db *mongo.Database) {
 	var webhook webhooks.ContaAPagarAlterado
 	fiber.BodyParser(&webhook)
 	fmt.Println(webhook.Topic)

@@ -9,14 +9,11 @@ import (
 )
 
 // CreateOnePedido Cria um pedido pelo metodo POST
-func BlingWebhookHandler(fiber *fiber.Ctx, db *mongo.Client) {
+func BlingWebhookHandler(fiber *fiber.Ctx, db *mongo.Database) {
 	var webhook webhooks.PedidoStatusAlterado
 	fiber.BodyParser(&webhook)
 	pedido := webhook.Retorno.Pedidos[0].Pedido
 	switch pedido.Situacao {
-
-	case "Concluido":
-		pedidoConcluido(fiber, db, pedido)
 
 	case "Aprovado":
 		pedidoAprovado(fiber, db, pedido)
@@ -27,25 +24,28 @@ func BlingWebhookHandler(fiber *fiber.Ctx, db *mongo.Client) {
 	case "Separado":
 		pedidoSeparado(fiber, db, pedido)
 
+	case "Concluido":
+		pedidoConcluido(fiber, db, pedido)
+
 	}
 
 }
 
-func pedidoConcluido(fiber *fiber.Ctx, db *mongo.Client, pedido webhooks.PedidoBling) {
+func pedidoConcluido(fiber *fiber.Ctx, db *mongo.Database, pedido webhooks.PedidoBling) {
 
 	fmt.Println(pedido.Cliente.Nome)
 	fmt.Println(pedido.Situacao)
 }
 
-func pedidoAprovado(fiber *fiber.Ctx, db *mongo.Client, pedido webhooks.PedidoBling) {
+func pedidoAprovado(fiber *fiber.Ctx, db *mongo.Database, pedido webhooks.PedidoBling) {
 	fmt.Println(pedido.Cliente.Nome)
 	fmt.Println(pedido.Situacao)
 }
-func pedidoEmAndamento(fiber *fiber.Ctx, db *mongo.Client, pedido webhooks.PedidoBling) {
+func pedidoEmAndamento(fiber *fiber.Ctx, db *mongo.Database, pedido webhooks.PedidoBling) {
 	fmt.Println(pedido.Cliente.Nome)
 	fmt.Println(pedido.Situacao)
 }
-func pedidoSeparado(fiber *fiber.Ctx, db *mongo.Client, pedido webhooks.PedidoBling) {
+func pedidoSeparado(fiber *fiber.Ctx, db *mongo.Database, pedido webhooks.PedidoBling) {
 	fmt.Println(pedido.Cliente.Nome)
 	fmt.Println(pedido.Situacao)
 }

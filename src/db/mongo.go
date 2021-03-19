@@ -19,7 +19,7 @@ type database struct {
 }
 
 // GetInstance return copy of db session
-func GetInstance() *mongo.Client {
+func GetInstance() *mongo.Database {
 
 	connectionString := fmt.Sprintf("mongodb+srv://%s:%s@%s/%s?retryWrites=true&w=majority",
 		os.Getenv("dbuser"),
@@ -38,10 +38,11 @@ func GetInstance() *mongo.Client {
 	}
 
 	err = client.Ping(ctx, readpref.Primary())
+	db := client.Database("pyramid")
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	return client
+	return db
 }

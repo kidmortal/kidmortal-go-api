@@ -8,7 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func WebhookRouter(r *fiber.App, db *mongo.Client) {
+func WebhookRouter(r *fiber.App, db *mongo.Database) {
 
 	webhook := r.Group("/webhook")
 

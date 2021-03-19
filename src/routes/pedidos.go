@@ -6,7 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func PedidosRouter(r *fiber.App, db *mongo.Client) {
+func PedidosRouter(r *fiber.App, db *mongo.Database) {
 
 	pedidos := r.Group("/pedidos")
 

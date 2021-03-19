@@ -15,6 +15,7 @@ type PedidoBling struct {
 	Totalvenda        string       `json:"totalvenda"`
 	Situacao          string       `json:"situacao"`
 	Datasaida         string       `json:"dataSaida"`
+	Dataprevisto      string       `json:"dataPrevisto"`
 	Loja              string       `json:"loja"`
 	Numeropedidoloja  string       `json:"numeroPedidoLoja"`
 	Tipointegracao    string       `json:"tipoIntegracao"`

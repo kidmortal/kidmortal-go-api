@@ -7,7 +7,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func CreateOneCliente(c *fiber.Ctx, db *mongo.Client) error {
+func CreateOneCliente(c *fiber.Ctx, db *mongo.Database) error {
 	err := c.Status(200).JSON(&fiber.Map{
 		"pedido": "eai",
 	})
@@ -18,7 +18,7 @@ func CreateOneCliente(c *fiber.Ctx, db *mongo.Client) error {
 
 	return err
 }
-func FindAllCliente(c *fiber.Ctx, db *mongo.Client) error {
+func FindAllCliente(c *fiber.Ctx, db *mongo.Database) error {
 	err := c.Status(200).JSON(&fiber.Map{
 		"pedido": "eai",
 	})
@@ -29,7 +29,7 @@ func FindAllCliente(c *fiber.Ctx, db *mongo.Client) error {
 
 	return err
 }
-func FindOneCliente(c *fiber.Ctx, db *mongo.Client) error {
+func FindOneCliente(c *fiber.Ctx, db *mongo.Database) error {
 	err := c.Status(200).JSON(&fiber.Map{
 		"pedido": "eai",
 	})
@@ -40,7 +40,7 @@ func FindOneCliente(c *fiber.Ctx, db *mongo.Client) error {
 
 	return err
 }
-func UpdateOneCliente(c *fiber.Ctx, db *mongo.Client) error {
+func UpdateOneCliente(c *fiber.Ctx, db *mongo.Database) error {
 	err := c.Status(200).JSON(&fiber.Map{
 		"pedido": "eai",
 	})
@@ -51,7 +51,7 @@ func UpdateOneCliente(c *fiber.Ctx, db *mongo.Client) error {
 
 	return err
 }
-func DeleteOneCliente(c *fiber.Ctx, db *mongo.Client) error {
+func DeleteOneCliente(c *fiber.Ctx, db *mongo.Database) error {
 	err := c.Status(200).JSON(&fiber.Map{
 		"pedido": "eai",
 	})
