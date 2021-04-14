@@ -4,13 +4,13 @@ import (
 	"fmt"
 
 	"github.com/gofiber/fiber/v2"
-	webhooks "github.com/kidmortal/kidmortal-go-api/src/models/omie/webhooks"
+	"github.com/kidmortal/kidmortal-go-api/src/models"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
 // CreateOnePedido Cria um pedido pelo metodo POST
 func OmieWebhookHandler(fiber *fiber.Ctx, db *mongo.Database) {
-	var webhook webhooks.OmieWebhook
+	var webhook models.OmieWebhook
 	fiber.BodyParser(&webhook)
 	switch webhook.Topic {
 
@@ -28,21 +28,21 @@ func OmieWebhookHandler(fiber *fiber.Ctx, db *mongo.Database) {
 }
 
 func clienteFornecedorAlterado(fiber *fiber.Ctx, db *mongo.Database) {
-	var webhook webhooks.ClienteFornecedorAlterado
+	var webhook models.ClienteFornecedorAlterado
 	fiber.BodyParser(&webhook)
 	fmt.Println(webhook.Topic)
 	fmt.Println(webhook.Event.RazaoSocial)
 }
 
 func financasContaPagarIncluido(fiber *fiber.Ctx, db *mongo.Database) {
-	var webhook webhooks.ContaAPagarIncluido
+	var webhook models.ContaAPagarIncluido
 	fiber.BodyParser(&webhook)
 	fmt.Println(webhook.Topic)
 	fmt.Println(webhook.Event.Observacao)
 }
 
 func financasContaPagarAlterado(fiber *fiber.Ctx, db *mongo.Database) {
-	var webhook webhooks.ContaAPagarAlterado
+	var webhook models.ContaAPagarAlterado
 	fiber.BodyParser(&webhook)
 	fmt.Println(webhook.Topic)
 

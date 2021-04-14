@@ -5,7 +5,7 @@ import (
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
-	mongodb "github.com/kidmortal/kidmortal-go-api/src/models/mongodb"
+	"github.com/kidmortal/kidmortal-go-api/src/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -25,7 +25,7 @@ func CreateOneProduto(c *fiber.Ctx, db *mongo.Database) error {
 
 // FindAllProduto Busca todos Produtos no sistema, aceitando alguns filtros para busca
 func FindAllProduto(c *fiber.Ctx, db *mongo.Database) error {
-	var Produto []mongodb.Produto
+	var Produto []models.Produto
 	collection := db.Collection("Produtos")
 	cursor, err := collection.Find(c.Context(), bson.M{})
 
@@ -51,7 +51,7 @@ func FindAllProduto(c *fiber.Ctx, db *mongo.Database) error {
 // FindOneProduto Busca um unico Produto usando o numero do Produto como parametro
 func FindOneProduto(c *fiber.Ctx, db *mongo.Database) error {
 	collection := db.Collection("Produtos")
-	var Produto mongodb.Produto
+	var Produto models.Produto
 	ProdutoParam := c.Params("Produto")
 	ProdutoNumero, err := strconv.Atoi(ProdutoParam)
 	collection.FindOne(c.Context(), bson.M{"numero": ProdutoNumero}).Decode(&Produto)

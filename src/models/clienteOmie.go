@@ -1,6 +1,11 @@
 package models
 
 // ClienteOmie estrutura de retorno de um cliente do OMIE
+type ClienteParam struct {
+	CodigoClienteOmie       int    `json:"codigo_cliente_omie,omitempty"`
+	CodigoClienteIntegracao string `json:"codigo_cliente_integracao,omitempty"`
+}
+
 type ClienteOmie struct {
 	CodigoClienteOmie       int    `json:"codigo_cliente_omie"`
 	CodigoClienteIntegracao string `json:"codigo_cliente_integracao"`

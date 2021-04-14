@@ -4,15 +4,16 @@ import (
 	"fmt"
 
 	"github.com/gofiber/fiber/v2"
-	webhooks "github.com/kidmortal/kidmortal-go-api/src/models/bling/webhooks"
+	"github.com/kidmortal/kidmortal-go-api/src/models"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
 // CreateOnePedido Cria um pedido pelo metodo POST
 func BlingWebhookHandler(fiber *fiber.Ctx, db *mongo.Database) {
-	var webhook webhooks.PedidoStatusAlterado
+	var webhook models.PedidoStatusAlterado
 	fiber.BodyParser(&webhook)
 	pedido := webhook.Retorno.Pedidos[0].Pedido
+
 	switch pedido.Situacao {
 
 	case "Aprovado":
@@ -31,21 +32,21 @@ func BlingWebhookHandler(fiber *fiber.Ctx, db *mongo.Database) {
 
 }
 
-func pedidoConcluido(fiber *fiber.Ctx, db *mongo.Database, pedido webhooks.PedidoBling) {
+func pedidoConcluido(fiber *fiber.Ctx, db *mongo.Database, pedido models.PedidoBling) {
 
 	fmt.Println(pedido.Cliente.Nome)
 	fmt.Println(pedido.Situacao)
 }
 
-func pedidoAprovado(fiber *fiber.Ctx, db *mongo.Database, pedido webhooks.PedidoBling) {
+func pedidoAprovado(fiber *fiber.Ctx, db *mongo.Database, pedido models.PedidoBling) {
 	fmt.Println(pedido.Cliente.Nome)
 	fmt.Println(pedido.Situacao)
 }
-func pedidoEmAndamento(fiber *fiber.Ctx, db *mongo.Database, pedido webhooks.PedidoBling) {
+func pedidoEmAndamento(fiber *fiber.Ctx, db *mongo.Database, pedido models.PedidoBling) {
 	fmt.Println(pedido.Cliente.Nome)
 	fmt.Println(pedido.Situacao)
 }
-func pedidoSeparado(fiber *fiber.Ctx, db *mongo.Database, pedido webhooks.PedidoBling) {
+func pedidoSeparado(fiber *fiber.Ctx, db *mongo.Database, pedido models.PedidoBling) {
 	fmt.Println(pedido.Cliente.Nome)
 	fmt.Println(pedido.Situacao)
 }

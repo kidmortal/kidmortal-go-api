@@ -8,14 +8,14 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
-	mongodb "github.com/kidmortal/kidmortal-go-api/src/models/mongodb"
+	"github.com/kidmortal/kidmortal-go-api/src/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
 // CreateOnePedido Cria um pedido pelo metodo POST
 func CreateOnePedido(c *fiber.Ctx, db *mongo.Database) error {
-	var pedido mongodb.Pedido
+	var pedido models.Pedido
 	validate := validator.New()
 	err := validate.Struct(pedido)
 
@@ -44,7 +44,7 @@ func CreateOnePedido(c *fiber.Ctx, db *mongo.Database) error {
 
 // FindAllPedido Busca todos pedidos no sistema, aceitando alguns filtros para busca
 func FindAllPedido(c *fiber.Ctx, db *mongo.Database) error {
-	var pedido []mongodb.Pedido
+	var pedido []models.Pedido
 	collection := db.Collection("pedidos")
 	cursor, err := collection.Find(c.Context(), bson.M{})
 
@@ -70,7 +70,7 @@ func FindAllPedido(c *fiber.Ctx, db *mongo.Database) error {
 // FindOnePedido Busca um unico pedido usando o numero do pedido como parametro
 func FindOnePedido(c *fiber.Ctx, db *mongo.Database) error {
 	collection := db.Collection("pedidos")
-	var pedido mongodb.Pedido
+	var pedido models.Pedido
 	pedidoParam := c.Params("pedido")
 	pedidoNumero, err := strconv.Atoi(pedidoParam)
 	collection.FindOne(c.Context(), bson.M{"numero": pedidoNumero}).Decode(&pedido)
@@ -96,7 +96,7 @@ func UpdateOnePedido(c *fiber.Ctx, db *mongo.Database) error {
 		return err
 	}
 
-	var pedido mongodb.Pedido
+	var pedido models.Pedido
 	c.BodyParser(&pedido)
 	validate := validator.New()
 	err = validate.Struct(pedido)
@@ -110,7 +110,7 @@ func UpdateOnePedido(c *fiber.Ctx, db *mongo.Database) error {
 		return err
 	}
 
-	result := db.Collection("pedidos").FindOneAndReplace(context.TODO(), mongodb.Pedido{Numero: numero}, pedido)
+	result := db.Collection("pedidos").FindOneAndReplace(context.TODO(), models.Pedido{Numero: numero}, pedido)
 
 	err = c.Status(200).JSON(&fiber.Map{
 		"pedido": result,

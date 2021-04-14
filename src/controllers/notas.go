@@ -5,13 +5,14 @@ import (
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
-	mongodb "github.com/kidmortal/kidmortal-go-api/src/models/mongodb"
+	"github.com/kidmortal/kidmortal-go-api/src/db"
+	"github.com/kidmortal/kidmortal-go-api/src/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
 // CreateOneNota Cria um Nota pelo metodo POST
-func CreateOneNota(c *fiber.Ctx, db *mongo.Database) error {
+func CreateOneNota(c *fiber.Ctx, database *mongo.Database) error {
 	err := c.Status(200).JSON(&fiber.Map{
 		"Nota": "eai",
 	})
@@ -20,12 +21,21 @@ func CreateOneNota(c *fiber.Ctx, db *mongo.Database) error {
 		log.Fatal(err)
 	}
 
+	var nota models.NfOmie
+
+	err = c.BodyParser(&nota)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	db.InsertOrUpdateNota(nota, database)
+
 	return err
 }
 
 // FindAllNota Busca todos Notas no sistema, aceitando alguns filtros para busca
 func FindAllNota(c *fiber.Ctx, db *mongo.Database) error {
-	var Nota []mongodb.Nota
+	var Nota []models.Nota
 	collection := db.Collection("Notas")
 	cursor, err := collection.Find(c.Context(), bson.M{})
 
@@ -51,7 +61,7 @@ func FindAllNota(c *fiber.Ctx, db *mongo.Database) error {
 // FindOneNota Busca um unico Nota usando o numero do Nota como parametro
 func FindOneNota(c *fiber.Ctx, db *mongo.Database) error {
 	collection := db.Collection("Notas")
-	var Nota mongodb.Nota
+	var Nota models.Nota
 	NotaParam := c.Params("Nota")
 	NotaNumero, err := strconv.Atoi(NotaParam)
 	collection.FindOne(c.Context(), bson.M{"numero": NotaNumero}).Decode(&Nota)

@@ -5,7 +5,7 @@ import (
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
-	mongodb "github.com/kidmortal/kidmortal-go-api/src/models/mongodb"
+	"github.com/kidmortal/kidmortal-go-api/src/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -25,7 +25,7 @@ func CreateOneLancamento(c *fiber.Ctx, db *mongo.Database) error {
 
 // FindAllLancamento Busca todos Lancamentos no sistema, aceitando alguns filtros para busca
 func FindAllLancamento(c *fiber.Ctx, db *mongo.Database) error {
-	var Lancamento []mongodb.Lancamento
+	var Lancamento []models.Lancamento
 	collection := db.Collection("Lancamentos")
 	cursor, err := collection.Find(c.Context(), bson.M{})
 
@@ -51,7 +51,7 @@ func FindAllLancamento(c *fiber.Ctx, db *mongo.Database) error {
 // FindOneLancamento Busca um unico Lancamento usando o numero do Lancamento como parametro
 func FindOneLancamento(c *fiber.Ctx, db *mongo.Database) error {
 	collection := db.Collection("Lancamentos")
-	var Lancamento mongodb.Lancamento
+	var Lancamento models.Lancamento
 	LancamentoParam := c.Params("Lancamento")
 	LancamentoNumero, err := strconv.Atoi(LancamentoParam)
 	collection.FindOne(c.Context(), bson.M{"numero": LancamentoNumero}).Decode(&Lancamento)
